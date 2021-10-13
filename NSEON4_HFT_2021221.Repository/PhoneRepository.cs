@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NSEON4_HFT_2021221.Repository
 {
-    class PhoneRepository : IPhoneRepository
+    public class PhoneRepository : IPhoneRepository
     {
         PhoneDbContext db;
 

@@ -1,14 +1,14 @@
 ﻿using NSEON4_HFT_2021221.Models;
-using System.Linq;
+using System.Collections.Generic;
 
-namespace NSEON4_HFT_2021221.Repository
+namespace NSEON4_HFT_2021221.Logic
 {
-    public interface IPhoneRepository
+    public interface IPhoneLogic
     {
         void Create(Phone phone);
         void Delete(int id);
         Phone Read(int id);
-        IQueryable<Phone> ReadAll();
+        IEnumerable<Phone> ReadAll();
         void Update(Phone phone);
     }
 }

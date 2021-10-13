@@ -17,7 +17,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NSEON4_HFT_2021221.Data\NSEON4_HFT_2021221.Data.csproj" />
+    <ProjectReference Include="..\NSEON4_HFT_2021221.Logic\NSEON4_HFT_2021221.Logic.csproj" />
     <ProjectReference Include="..\NSEON4_HFT_2021221.Models\NSEON4_HFT_2021221.Models.csproj" />
+    <ProjectReference Include="..\NSEON4_HFT_2021221.Repository\NSEON4_HFT_2021221.Repository.csproj" />
   </ItemGroup>
 
 </Project>
