@@ -17,6 +17,8 @@ namespace NSEON4_HFT_2021221.Client
 
             HeadquarterLogic headquarterLogic = new HeadquarterLogic(new HeadquarterRepository(db));
 
+            CountryLogic countryLogic = new CountryLogic(new CountryRepository(db));
+
             var q = headquarterLogic.ReadAll();
             ;
         }

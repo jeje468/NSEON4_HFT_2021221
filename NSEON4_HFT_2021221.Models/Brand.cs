@@ -25,6 +25,7 @@ namespace NSEON4_HFT_2021221.Models
         public Brand()
         {
             Phones = new HashSet<Phone>();
+            Headquarters = new HashSet<Headquarter>();
         }
     }
 }

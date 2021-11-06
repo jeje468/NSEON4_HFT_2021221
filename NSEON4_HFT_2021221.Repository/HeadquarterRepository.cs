@@ -45,6 +45,7 @@ namespace NSEON4_HFT_2021221.Repository
             var headquarterToUpdate = Read(headquarter.Id);
             headquarterToUpdate.City = headquarter.City;
             headquarterToUpdate.BrandId = headquarter.BrandId;
+            headquarterToUpdate.CountryId = headquarter.CountryId;
             db.SaveChanges();
         }
     }

@@ -8,24 +8,22 @@ using System.Threading.Tasks;
 
 namespace NSEON4_HFT_2021221.Models
 {
-    public class Headquarter
+    public class Country
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public string City { get; set; }
+        public string Name { get; set; }
+
+        public string Continent { get; set; }
 
         [NotMapped]
-        public virtual Brand Brand { get; set; }
+        public virtual ICollection<Headquarter> Headquarters { get; set; }
 
-        [ForeignKey(nameof(Brand))]
-        public int BrandId { get; set; }
-        
-        [NotMapped]
-        public virtual Country Country { get; set; }
-
-        [ForeignKey(nameof(Country))]
-        public int CountryId { get; set; }
+        public Country()
+        {
+            Headquarters = new HashSet<Headquarter>();
+        }
     }
 }

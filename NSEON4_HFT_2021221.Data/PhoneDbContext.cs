@@ -13,6 +13,7 @@ namespace NSEON4_HFT_2021221.Data
         public virtual DbSet<Phone> Phones { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Headquarter> Headquarters { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
 
         public PhoneDbContext()
         {
@@ -47,11 +48,24 @@ namespace NSEON4_HFT_2021221.Data
                 .OnDelete(DeleteBehavior.Restrict);
             });
 
+            modelBuilder.Entity<Headquarter>(entity =>
+            {
+                entity
+                .HasOne(Headquarter => Headquarter.Country)
+                .WithMany(country => country.Headquarters)
+                .HasForeignKey(Headquarter => Headquarter.CountryId)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
+
             Brand samsung = new Brand() { Id = 1, Name = "Samsung" };
             Brand oneplus = new Brand() { Id = 2, Name = "OnePlus" };
             Brand apple = new Brand() { Id = 3, Name = "Apple" };
             Brand xiaomi = new Brand() { Id = 4, Name = "Xiaomi" };
             Brand huawei = new Brand() { Id = 5, Name = "Huawei" };
+
+            Country china = new Country() { Id = 1, Name = "China", Continent = "Asia" };
+            Country usa = new Country() { Id = 2, Name = "USA", Continent = "North America" };
+            Country southKorea = new Country() { Id = 3, Name = "South Korea", Continent = "Asia" };
 
             Phone galaxy = new Phone() { Id = 1, Name = "Galaxy S21", BrandId = samsung.Id, Price = 1000 };
             Phone op9 = new Phone() { Id = 2, Name = "OnePlus 9", BrandId = oneplus.Id, Price = 900 };
@@ -65,15 +79,16 @@ namespace NSEON4_HFT_2021221.Data
             Phone nord = new Phone() { Id = 10, Name = "OnePlus Nord2", BrandId = oneplus.Id, Price = 300 };
 
 
-            Headquarter sam = new Headquarter() { Id = 1, BrandId = samsung.Id, City = "Soeul" };
-            Headquarter op = new Headquarter() { Id = 2, BrandId = oneplus.Id, City = "Shenzhen" };
-            Headquarter ap = new Headquarter() { Id = 3, BrandId = apple.Id, City = "California" };
-            Headquarter xi = new Headquarter() { Id = 4, BrandId = xiaomi.Id, City = "Beijing" };
-            Headquarter hu = new Headquarter() { Id = 5, BrandId = huawei.Id, City = "Shenzhen" };
+            Headquarter sam = new Headquarter() { Id = 1, BrandId = samsung.Id, City = "Soeul" , CountryId = southKorea.Id};
+            Headquarter op = new Headquarter() { Id = 2, BrandId = oneplus.Id, City = "Shenzhen" , CountryId = china.Id};
+            Headquarter ap = new Headquarter() { Id = 3, BrandId = apple.Id, City = "California", CountryId = usa.Id};
+            Headquarter xi = new Headquarter() { Id = 4, BrandId = xiaomi.Id, City = "Beijing", CountryId = china.Id };
+            Headquarter hu = new Headquarter() { Id = 5, BrandId = huawei.Id, City = "Shenzhen", CountryId = china.Id };
 
             modelBuilder.Entity<Brand>().HasData(samsung, oneplus, apple, xiaomi, huawei);
             modelBuilder.Entity<Phone>().HasData(galaxy, op9, iphone, op9Pro, note, mate, redmi, p40, poco, nord);
             modelBuilder.Entity<Headquarter>().HasData(sam, op, ap, xi, hu);
+            modelBuilder.Entity<Country>().HasData(china, usa, southKorea);
         }
     }
 }
