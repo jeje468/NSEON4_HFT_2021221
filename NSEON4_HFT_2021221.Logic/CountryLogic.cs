@@ -55,8 +55,8 @@ namespace NSEON4_HFT_2021221.Logic
             return from x in countryRepo.ReadAll().ToList()
                    group x by x into g
                    let headquarters = g.Key.Headquarters.Select(h => h)
-                   let brands = headquarters.Select(b => b.Brand)
-                   select new KeyValuePair<string, IEnumerable<string>>(g.Key.Name, brands.Select(b => b.Name));
+                   let brands = (headquarters.Select(b => b.Brand)).Select(b => b.Name)
+                   select new KeyValuePair<string, IEnumerable<string>>(g.Key.Name, brands.OrderBy(b => b));
         }
     }
 }
