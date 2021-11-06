@@ -10,5 +10,6 @@ namespace NSEON4_HFT_2021221.Logic
         Phone Read(int id);
         IEnumerable<Phone> ReadAll();
         void Update(Phone phone);
+        IEnumerable<KeyValuePair<string, int>> NumberOfPhonesByBrands();
     }
 }

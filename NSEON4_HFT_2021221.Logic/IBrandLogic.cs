@@ -10,5 +10,6 @@ namespace NSEON4_HFT_2021221.Logic
         Brand Read(int id);
         IEnumerable<Brand> ReadAll();
         void Update(Brand brand);
+        IEnumerable<KeyValuePair<string, Phone>> BestCameraByEachBrand();
     }
 }

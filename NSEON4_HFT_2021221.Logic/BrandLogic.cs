@@ -41,6 +41,13 @@ namespace NSEON4_HFT_2021221.Logic
             brandRepo.Update(brand);
         }
 
-        
+        public IEnumerable<KeyValuePair<string, Phone>> BestCameraByEachBrand()
+        {
+            return from x in brandRepo.ReadAll().ToList()
+                   group x by x into g
+                   let max = g.Key.Phones.Max(p => p.CameraPixels)
+                   orderby g.Key.Name
+                   select new KeyValuePair<string, Phone>(g.Key.Name, g.Key.Phones.FirstOrDefault(p => p.CameraPixels == max));
+        }
     }
 }

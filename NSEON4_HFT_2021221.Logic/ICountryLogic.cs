@@ -10,5 +10,7 @@ namespace NSEON4_HFT_2021221.Logic
         Country Read(int id);
         IEnumerable<Country> ReadAll();
         void Update(Country country);
+        IEnumerable<KeyValuePair<string, int>> CountryWithMostHeadquarters();
+        IEnumerable<KeyValuePair<string, IEnumerable<string>>> CountriesAndBrandsThatManufactureThere();
     }
 }

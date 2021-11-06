@@ -26,6 +26,8 @@ namespace NSEON4_HFT_2021221.Client
             var q3 = countryLogic.CountryWithMostHeadquarters();
 
             var q4 = countryLogic.CountriesAndBrandsThatManufactureThere();
+
+            var q5 = brandLogic.BestCameraByEachBrand();
             ;
         }
     }
