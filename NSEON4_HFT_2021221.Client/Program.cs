@@ -24,6 +24,8 @@ namespace NSEON4_HFT_2021221.Client
             var q2 = phoneLogic.NumberOfPhonesByBrands();
 
             var q3 = countryLogic.CountryWithMostHeadquarters();
+
+            var q4 = countryLogic.CountriesAndBrandsThatManufactureThere();
             ;
         }
     }

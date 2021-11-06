@@ -48,8 +48,15 @@ namespace NSEON4_HFT_2021221.Logic
                     let cnt = g.Count()
                     orderby cnt descending
                     select new KeyValuePair<string, int>(g.Key.Name, g.Key.Headquarters.Count())).Take(1);
+        }
 
-
+        public IEnumerable<KeyValuePair<string, IEnumerable<string>>> CountriesAndBrandsThatManufactureThere()
+        {
+            return from x in countryRepo.ReadAll().ToList()
+                   group x by x into g
+                   let headquarters = g.Key.Headquarters.Select(h => h)
+                   let brands = headquarters.Select(b => b.Brand)
+                   select new KeyValuePair<string, IEnumerable<string>>(g.Key.Name, brands.Select(b => b.Name));
         }
     }
 }
