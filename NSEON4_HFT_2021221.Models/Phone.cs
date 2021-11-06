@@ -17,6 +17,7 @@ namespace NSEON4_HFT_2021221.Models
         public string Name { get; set; }
 
         public int Price { get; set; }
+        public int CameraPixels { get; set; }
 
         [NotMapped]
         public virtual Brand Brand { get; set; }

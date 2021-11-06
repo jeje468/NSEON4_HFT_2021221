@@ -46,6 +46,7 @@ namespace NSEON4_HFT_2021221.Repository
             phoneToUpdate.Price = phone.Price;
             phoneToUpdate.Name = phone.Name;
             phoneToUpdate.BrandId = phone.BrandId;
+            phoneToUpdate.CameraPixels = phone.CameraPixels;
             db.SaveChanges();
         }
     }
