@@ -40,5 +40,12 @@ namespace NSEON4_HFT_2021221.Logic
         {
             phoneRepo.Update(phone);
         }
+
+        public IEnumerable<KeyValuePair<string, int>> NumberOfPhonesByBrands()
+        {
+            return from x in phoneRepo.ReadAll()
+                   group x by x.Brand.Name into g
+                   select new KeyValuePair<string, int>(g.Key, g.Count());
+        }
     }
 }

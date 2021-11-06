@@ -20,6 +20,10 @@ namespace NSEON4_HFT_2021221.Client
             CountryLogic countryLogic = new CountryLogic(new CountryRepository(db));
 
             var q = headquarterLogic.ReadAll();
+
+            var q2 = phoneLogic.NumberOfPhonesByBrands();
+
+            var q3 = countryLogic.CountryWithMostHeadquarters();
             ;
         }
     }

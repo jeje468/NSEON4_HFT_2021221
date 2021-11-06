@@ -40,5 +40,16 @@ namespace NSEON4_HFT_2021221.Logic
         {
             countryRepo.Update(country);
         }
+
+        public IEnumerable<KeyValuePair<string, int>> CountryWithMostHeadquarters()
+        {
+            return (from x in countryRepo.ReadAll().ToList()
+                    group x by x into g
+                    let cnt = g.Count()
+                    orderby cnt descending
+                    select new KeyValuePair<string, int>(g.Key.Name, g.Key.Headquarters.Count())).Take(1);
+
+
+        }
     }
 }
