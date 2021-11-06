@@ -62,10 +62,12 @@ namespace NSEON4_HFT_2021221.Data
             Brand apple = new Brand() { Id = 3, Name = "Apple" };
             Brand xiaomi = new Brand() { Id = 4, Name = "Xiaomi" };
             Brand huawei = new Brand() { Id = 5, Name = "Huawei" };
+            Brand sony = new Brand() { Id = 6, Name = "Sony" };
 
             Country china = new Country() { Id = 1, Name = "China", Continent = "Asia" };
             Country usa = new Country() { Id = 2, Name = "USA", Continent = "North America" };
             Country southKorea = new Country() { Id = 3, Name = "South Korea", Continent = "Asia" };
+            Country japan = new Country() { Id = 4, Name = "Japan", Continent = "Asia" };
 
             Phone galaxy = new Phone() { Id = 1, Name = "Galaxy S21", BrandId = samsung.Id, Price = 1000 };
             Phone op9 = new Phone() { Id = 2, Name = "OnePlus 9", BrandId = oneplus.Id, Price = 900 };
@@ -77,6 +79,13 @@ namespace NSEON4_HFT_2021221.Data
             Phone p40 = new Phone() { Id = 8, Name = "P40 Lite", BrandId = huawei.Id, Price = 400 };
             Phone poco = new Phone() { Id = 9, Name = "Poco F2", BrandId = xiaomi.Id, Price = 600 };
             Phone nord = new Phone() { Id = 10, Name = "OnePlus Nord2", BrandId = oneplus.Id, Price = 300 };
+            Phone xperia10 = new Phone() { Id = 11, Name = "Xperia 10", BrandId = sony.Id, Price = 500 };
+            Phone galaxyA = new Phone() { Id = 12, Name = "Galaxy A52", BrandId = samsung.Id, Price = 400 };
+            Phone iphonePro = new Phone() { Id = 13, Name = "IPhone 13 Pro", BrandId = apple.Id, Price = 2000 };
+            Phone iphoneSE = new Phone() { Id = 14, Name = "IPhone SE", BrandId = apple.Id, Price = 1000 };
+            Phone mi11 = new Phone() { Id = 15, Name = "Xiaomi Mi 11", BrandId = xiaomi.Id, Price = 900 };
+
+
 
 
             Headquarter sam = new Headquarter() { Id = 1, BrandId = samsung.Id, City = "Soeul" , CountryId = southKorea.Id};
@@ -84,11 +93,12 @@ namespace NSEON4_HFT_2021221.Data
             Headquarter ap = new Headquarter() { Id = 3, BrandId = apple.Id, City = "California", CountryId = usa.Id};
             Headquarter xi = new Headquarter() { Id = 4, BrandId = xiaomi.Id, City = "Beijing", CountryId = china.Id };
             Headquarter hu = new Headquarter() { Id = 5, BrandId = huawei.Id, City = "Shenzhen", CountryId = china.Id };
+            Headquarter so = new Headquarter() { Id = 6, BrandId = sony.Id, City = "Tokyo", CountryId = japan.Id };
 
-            modelBuilder.Entity<Brand>().HasData(samsung, oneplus, apple, xiaomi, huawei);
-            modelBuilder.Entity<Phone>().HasData(galaxy, op9, iphone, op9Pro, note, mate, redmi, p40, poco, nord);
-            modelBuilder.Entity<Headquarter>().HasData(sam, op, ap, xi, hu);
-            modelBuilder.Entity<Country>().HasData(china, usa, southKorea);
+            modelBuilder.Entity<Brand>().HasData(samsung, oneplus, apple, xiaomi, huawei, sony);
+            modelBuilder.Entity<Phone>().HasData(galaxy, op9, iphone, op9Pro, note, mate, redmi, p40, poco, nord, xperia10, galaxyA, iphonePro, iphoneSE, mi11);
+            modelBuilder.Entity<Headquarter>().HasData(sam, op, ap, xi, hu, so);
+            modelBuilder.Entity<Country>().HasData(china, usa, southKorea, japan);
         }
     }
 }
