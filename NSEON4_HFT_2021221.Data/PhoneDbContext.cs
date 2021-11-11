@@ -95,6 +95,7 @@ namespace NSEON4_HFT_2021221.Data
             Headquarter hu = new Headquarter() { Id = 5, BrandId = huawei.Id, City = "Shenzhen", CountryId = china.Id };
             Headquarter so = new Headquarter() { Id = 6, BrandId = sony.Id, City = "Tokyo", CountryId = japan.Id };
 
+
             modelBuilder.Entity<Brand>().HasData(samsung, oneplus, apple, xiaomi, huawei, sony);
             modelBuilder.Entity<Phone>().HasData(galaxy, op9, iphone, op9Pro, note, mate, redmi, p40, poco, nord, xperia10, galaxyA, iphonePro, iphoneSE, mi11);
             modelBuilder.Entity<Headquarter>().HasData(sam, op, ap, xi, hu, so);

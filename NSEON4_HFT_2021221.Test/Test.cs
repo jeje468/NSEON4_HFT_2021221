@@ -139,5 +139,14 @@ namespace NSEON4_HFT_2021221.Test
 
             Assert.That(result, Is.EqualTo(expected));
         }
+
+        [Test]
+        public void Create()
+        {
+            pl.Create(new Phone() { Id = 16, Name = "OnePlus 8", BrandId = 2, Price = 900, CameraPixels = 50});
+            var q = pl.ReadAll();
+
+            Assert.That(q.ToList().Count(), Is.EqualTo(16));
+        }
     }
 }
