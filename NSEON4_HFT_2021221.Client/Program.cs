@@ -1,5 +1,6 @@
 ﻿using NSEON4_HFT_2021221.Data;
 using NSEON4_HFT_2021221.Logic;
+using NSEON4_HFT_2021221.Models;
 using NSEON4_HFT_2021221.Repository;
 using System;
 
@@ -28,6 +29,8 @@ namespace NSEON4_HFT_2021221.Client
             var q4 = countryLogic.CountriesAndBrandsThatManufactureThere();
 
             var q5 = brandLogic.BestCameraByEachBrand();
+
+            
             ;
         }
     }
