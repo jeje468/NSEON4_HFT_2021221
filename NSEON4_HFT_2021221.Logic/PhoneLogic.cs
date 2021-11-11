@@ -18,6 +18,10 @@ namespace NSEON4_HFT_2021221.Logic
 
         public void Create(Phone phone)
         {
+            if (phone.Name == "")
+            {
+                throw new ArgumentException("Invalid phone name");
+            }
             phoneRepo.Create(phone);
         }
 

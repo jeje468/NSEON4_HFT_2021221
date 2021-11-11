@@ -18,6 +18,10 @@ namespace NSEON4_HFT_2021221.Logic
 
         public void Create(Brand brand)
         {
+            if (brand.Name == "")
+            {
+                throw new ArgumentException("Invalid brand name");
+            }
             brandRepo.Create(brand);
         }
 

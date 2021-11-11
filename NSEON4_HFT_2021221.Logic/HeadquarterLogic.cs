@@ -18,6 +18,10 @@ namespace NSEON4_HFT_2021221.Logic
 
         public void Create(Headquarter headquarter)
         {
+            if (headquarter.City == "")
+            {
+                throw new ArgumentException("Invalid headquarter name");
+            }
             headquarterRepo.Create(headquarter);
         }
 

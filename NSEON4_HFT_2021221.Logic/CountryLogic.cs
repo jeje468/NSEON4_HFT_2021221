@@ -18,6 +18,10 @@ namespace NSEON4_HFT_2021221.Logic
 
         public void Create(Country country)
         {
+            if (country.Name == "")
+            {
+                throw new ArgumentException("Invalid country name");
+            }
             countryRepo.Create(country);
         }
 

@@ -19,7 +19,7 @@ namespace NSEON4_HFT_2021221.Models
         public int Price { get; set; }
         public int CameraPixels { get; set; }
 
-        [NotMapped]
+        [NotMapped]  
         public virtual Brand Brand { get; set; }
 
         [ForeignKey(nameof(Brand))]
