@@ -110,9 +110,15 @@ namespace NSEON4_HFT_2021221.Test
 
             var countries = new List<Country>();
             countries.Add(china);
+            countries[0].Headquarters.Add(op);
+            countries[0].Headquarters.Add(xi);
+            countries[0].Headquarters.Add(hu);
             countries.Add(usa);
+            countries[1].Headquarters.Add(ap);
             countries.Add(southKorea);
+            countries[2].Headquarters.Add(sam);
             countries.Add(japan);
+            countries[3].Headquarters.Add(so);
 
             var headquarters = new List<Headquarter>();
             headquarters.Add(sam);
@@ -172,6 +178,40 @@ namespace NSEON4_HFT_2021221.Test
             Assert.That(result.Contains(new KeyValuePair<string, string>("Sony", "Xperia 10")));            
         }
 
+        [Test]
+        public void CountryWithMostHeadquarters()
+        {
+            var result = cl.CountryWithMostHeadquarters();
+
+            
+
+            Assert.That(result.ToList()[0], Is.EqualTo(new KeyValuePair<string, int>("China", 3)));
+        }
+
+        [Test]
+        public void CountriesAndBrandsThatManufactureThere()
+        {
+            var result = cl.CountriesAndBrandsThatManufactureThere();
+
+            Assert.That(result.Count(), Is.EqualTo(4));
+            Assert.That(result.ToList()[0].Key, Is.EqualTo("China"));
+            Assert.That(result.ToList()[0].Value, Is.EqualTo(new List<string>() { "Huawei", "OnePlus", "Xiaomi" }));
+            Assert.That(result.ToList()[1].Key, Is.EqualTo("Japan"));
+            Assert.That(result.ToList()[1].Value, Is.EqualTo(new List<string>() { "Sony"}));
+            Assert.That(result.ToList()[2].Key, Is.EqualTo("South Korea"));
+            Assert.That(result.ToList()[2].Value, Is.EqualTo(new List<string>() { "Samsung" }));
+            Assert.That(result.ToList()[3].Key, Is.EqualTo("USA"));
+            Assert.That(result.ToList()[3].Value, Is.EqualTo(new List<string>() { "Apple" }));
+        }
+
+        [Test]
+        public void BrandWithTheMostExpensivePhone()
+        {
+            var result = bl.BrandWithTheMostExpensivePhone();
+
+            Assert.That(result.ToList()[0].Key, Is.EqualTo("Apple"));
+            Assert.That(result.ToList()[0].Value, Is.EqualTo(2000));
+        }
         /*[Test]
         public void Create()
         {

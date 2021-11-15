@@ -53,5 +53,15 @@ namespace NSEON4_HFT_2021221.Logic
                    orderby g.Key.Name
                    select new KeyValuePair<string, string>(g.Key.Name, g.Key.Phones.FirstOrDefault(p => p.CameraPixels == max).Name);
         }
+
+        public IEnumerable<KeyValuePair<string, int>> BrandWithTheMostExpensivePhone()
+        {
+            return ((from x in brandRepo.ReadAll().ToList()
+                   group x by x into g
+                   let max = g.Key.Phones.Max(P => P.Price)
+                   from y in g.Key.Phones
+                   where y.Price == max
+                   select new KeyValuePair<string, int>(y.Brand.Name, y.Price)).OrderByDescending(k => k.Value)).Take(1);
+        }
     }
 }

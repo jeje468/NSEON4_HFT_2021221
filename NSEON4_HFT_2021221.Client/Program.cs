@@ -30,6 +30,7 @@ namespace NSEON4_HFT_2021221.Client
 
             var q5 = brandLogic.BestCameraByEachBrand();
 
+            var q6 = brandLogic.BrandWithTheMostExpensivePhone();
             ;
         }
     }

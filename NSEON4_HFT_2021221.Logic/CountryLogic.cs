@@ -60,6 +60,7 @@ namespace NSEON4_HFT_2021221.Logic
                    group x by x into g
                    let headquarters = g.Key.Headquarters.Select(h => h)
                    let brands = (headquarters.Select(b => b.Brand)).Select(b => b.Name)
+                   orderby g.Key.Name
                    select new KeyValuePair<string, IEnumerable<string>>(g.Key.Name, brands.OrderBy(b => b));
         }
     }

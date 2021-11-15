@@ -11,5 +11,6 @@ namespace NSEON4_HFT_2021221.Logic
         IEnumerable<Brand> ReadAll();
         void Update(Brand brand);
         IEnumerable<KeyValuePair<string, string>> BestCameraByEachBrand();
+        IEnumerable<KeyValuePair<string, int>> BrandWithTheMostExpensivePhone();
     }
 }
