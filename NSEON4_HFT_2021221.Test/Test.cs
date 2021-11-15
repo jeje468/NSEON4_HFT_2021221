@@ -55,12 +55,12 @@ namespace NSEON4_HFT_2021221.Test
             Phone iphoneSE = new Phone() { Id = 14, Name = "IPhone SE", BrandId = apple.Id, Price = 1000, CameraPixels = 12, Brand = apple };
             Phone mi11 = new Phone() { Id = 15, Name = "Xiaomi Mi 11", BrandId = xiaomi.Id, Price = 900, CameraPixels = 108, Brand = xiaomi };
 
-            Headquarter sam = new Headquarter() { Id = 1, BrandId = samsung.Id, City = "Soeul", CountryId = southKorea.Id };
-            Headquarter op = new Headquarter() { Id = 2, BrandId = oneplus.Id, City = "Shenzhen", CountryId = china.Id };
-            Headquarter ap = new Headquarter() { Id = 3, BrandId = apple.Id, City = "California", CountryId = usa.Id };
-            Headquarter xi = new Headquarter() { Id = 4, BrandId = xiaomi.Id, City = "Beijing", CountryId = china.Id };
-            Headquarter hu = new Headquarter() { Id = 5, BrandId = huawei.Id, City = "Shenzhen", CountryId = china.Id };
-            Headquarter so = new Headquarter() { Id = 6, BrandId = sony.Id, City = "Tokyo", CountryId = japan.Id };
+            Headquarter sam = new Headquarter() { Id = 1, BrandId = samsung.Id, City = "Soeul", CountryId = southKorea.Id, Brand = samsung, Country = southKorea };
+            Headquarter op = new Headquarter() { Id = 2, BrandId = oneplus.Id, City = "Shenzhen", CountryId = china.Id, Brand = oneplus, Country = china };
+            Headquarter ap = new Headquarter() { Id = 3, BrandId = apple.Id, City = "California", CountryId = usa.Id, Brand = apple, Country = usa };
+            Headquarter xi = new Headquarter() { Id = 4, BrandId = xiaomi.Id, City = "Beijing", CountryId = china.Id, Brand = xiaomi, Country = china };
+            Headquarter hu = new Headquarter() { Id = 5, BrandId = huawei.Id, City = "Shenzhen", CountryId = china.Id, Brand = huawei, Country = china };
+            Headquarter so = new Headquarter() { Id = 6, BrandId = sony.Id, City = "Tokyo", CountryId = japan.Id, Brand = sony, Country = japan };
 
             var phones = new List<Phone>();
             phones.Add(galaxy);
@@ -108,10 +108,28 @@ namespace NSEON4_HFT_2021221.Test
             brands.Add(huawei);
             brands.Add(sony);
 
+            var countries = new List<Country>();
+            countries.Add(china);
+            countries.Add(usa);
+            countries.Add(southKorea);
+            countries.Add(japan);
+
+            var headquarters = new List<Headquarter>();
+            headquarters.Add(sam);
+            headquarters.Add(op);
+            headquarters.Add(ap);
+            headquarters.Add(xi);
+            headquarters.Add(hu);
+            headquarters.Add(so);
+
             mockPhoneRepository.Setup((t) => t.ReadAll()).Returns(phones.AsQueryable());
             mockBrandRepository.Setup((t) => t.ReadAll()).Returns(brands.AsQueryable());
+            mockCountryRepository.Setup((t) => t.ReadAll()).Returns(countries.AsQueryable());
+            mockHeadquarterRepository.Setup((t) => t.ReadAll()).Returns(headquarters.AsQueryable());
             pl = new PhoneLogic(mockPhoneRepository.Object);
             bl = new BrandLogic(mockBrandRepository.Object);
+            cl = new CountryLogic(mockCountryRepository.Object);
+            hl = new HeadquarterLogic(mockHeadquarterRepository.Object);
 
         }
 
@@ -141,12 +159,26 @@ namespace NSEON4_HFT_2021221.Test
         }
 
         [Test]
+        public void BestCameraByEachBrand()
+        {
+            var result = bl.BestCameraByEachBrand();
+
+            Assert.That(result.Count(), Is.EqualTo(6));
+            Assert.That(result.Contains(new KeyValuePair<string, string>("Samsung", "Galaxy A52")));
+            Assert.That(result.Contains(new KeyValuePair<string, string>("Apple", "IPhone 12")));
+            Assert.That(result.Contains(new KeyValuePair<string, string>("Xiaomi", "Xiaomi Mi 11")));
+            Assert.That(result.Contains(new KeyValuePair<string, string>("OnePlus", "OnePlus 9")));
+            Assert.That(result.Contains(new KeyValuePair<string, string>("Huawei", "Mate 40 Pro")));
+            Assert.That(result.Contains(new KeyValuePair<string, string>("Sony", "Xperia 10")));            
+        }
+
+        /*[Test]
         public void Create()
         {
             pl.Create(new Phone() { Id = 16, Name = "OnePlus 8", BrandId = 2, Price = 900, CameraPixels = 50});
             var q = pl.ReadAll();
 
             Assert.That(q.ToList().Count(), Is.EqualTo(16));
-        }
+        }*/
     }
 }
