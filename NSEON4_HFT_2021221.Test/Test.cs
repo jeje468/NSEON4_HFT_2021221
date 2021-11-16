@@ -140,13 +140,6 @@ namespace NSEON4_HFT_2021221.Test
         }
 
         [Test]
-        public void PhoneCreateThrowsException()
-        {            
-            Assert.That(() => 
-            pl.Create(new Phone() { Name =""}), Throws.Exception);
-        }
-
-        [Test]
         public void NumberOfPhonesByBrand()
         {
             var result = pl.NumberOfPhonesByBrands();
@@ -181,9 +174,7 @@ namespace NSEON4_HFT_2021221.Test
         [Test]
         public void CountryWithMostHeadquarters()
         {
-            var result = cl.CountryWithMostHeadquarters();
-
-            
+            var result = cl.CountryWithMostHeadquarters();            
 
             Assert.That(result.ToList()[0], Is.EqualTo(new KeyValuePair<string, int>("China", 3)));
         }
@@ -194,12 +185,16 @@ namespace NSEON4_HFT_2021221.Test
             var result = cl.CountriesAndBrandsThatManufactureThere();
 
             Assert.That(result.Count(), Is.EqualTo(4));
+
             Assert.That(result.ToList()[0].Key, Is.EqualTo("China"));
             Assert.That(result.ToList()[0].Value, Is.EqualTo(new List<string>() { "Huawei", "OnePlus", "Xiaomi" }));
+
             Assert.That(result.ToList()[1].Key, Is.EqualTo("Japan"));
             Assert.That(result.ToList()[1].Value, Is.EqualTo(new List<string>() { "Sony"}));
+
             Assert.That(result.ToList()[2].Key, Is.EqualTo("South Korea"));
             Assert.That(result.ToList()[2].Value, Is.EqualTo(new List<string>() { "Samsung" }));
+
             Assert.That(result.ToList()[3].Key, Is.EqualTo("USA"));
             Assert.That(result.ToList()[3].Value, Is.EqualTo(new List<string>() { "Apple" }));
         }
@@ -212,13 +207,65 @@ namespace NSEON4_HFT_2021221.Test
             Assert.That(result.ToList()[0].Key, Is.EqualTo("Apple"));
             Assert.That(result.ToList()[0].Value, Is.EqualTo(2000));
         }
-        /*[Test]
-        public void Create()
+
+
+        [Test]
+        public void PhoneCreateThrowsException()
         {
-            pl.Create(new Phone() { Id = 16, Name = "OnePlus 8", BrandId = 2, Price = 900, CameraPixels = 50});
+            Assert.That(() =>
+            pl.Create(new Phone() { Name = "" }), Throws.Exception);
+        }
+
+        [Test]
+        public void PhoneCreate()
+        {
+            Phone newPhone = new Phone()
+            {
+                Id = 16,
+                Name = "NewPhone",
+                Price = 900,
+                CameraPixels = 50
+            };
+
+            pl.Create(newPhone);
+            
             var q = pl.ReadAll();
 
             Assert.That(q.ToList().Count(), Is.EqualTo(16));
-        }*/
+            Assert.That(q.ToList().Contains(newPhone));
+        }
+
+        [Test]
+        public void BrandCreate()
+        {
+            Brand newBrand = new Brand()
+            {
+                Name = "New Brand",
+            };
+
+            bl.Create(newBrand);
+
+            var q = bl.ReadAll();
+
+            Assert.That(q.ToList().Count(), Is.EqualTo(7));
+            Assert.That(q.ToList().Contains(newBrand));
+        }
+
+        [Test]
+        public void PhoneDelete()
+        {
+            int size = pl.ReadAll().ToList().Count();
+            pl.Delete(1);
+
+            Assert.That(pl.ReadAll().ToList().Count(), Is.EqualTo(size - 1));
+        }
+
+        [Test]
+        public void CountryRead()
+        {
+            var result = cl.Read(1);
+
+            Assert.That(result.Name, Is.EqualTo("China"));
+        }
     }
 }
