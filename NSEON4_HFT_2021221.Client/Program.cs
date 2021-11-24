@@ -30,16 +30,16 @@ namespace NSEON4_HFT_2021221.Client
                 switch (num)
                 {
                     case 1:
-                        Display();                        
+                        Display(rest);                        
                         break;                    
                     case 2:
-                        DisplayExtraInfo();
+                        DisplayExtraInfo(rest);
                         break;;
                     case 3:
-                        Create();
+                        Create(rest);
                         break;
                     case 4:
-                        Delete();
+                        Delete(rest);
                         break;
                     default:
                         break;
@@ -50,176 +50,179 @@ namespace NSEON4_HFT_2021221.Client
 
             ;
 
-            void Display()
-            {
-                Console.WriteLine(
-                    "What do you wish to display?\n" +
-                    "1. Brands\n" +
-                    "2. Phones\n" +
-                    "3. Countries\n" +
-                    "4. Headquarters\n");
-                
-                int num = int.Parse(Console.ReadLine());
+            
+            
+        }
 
-                switch (num)
-                {
-                    case 1:
-                        var brands = rest.Get<Brand>("brand");
-                        Recorder<Brand> brandRecorder = new Recorder<Brand>(brands);
-                        brandRecorder.Write();
-                        break;
-                    case 2:
-                        var phones = rest.Get<Phone>("phone");
-                        Recorder<Phone> phoneRecorder = new Recorder<Phone>(phones);
-                        phoneRecorder.Write();
-                        break;
-                    case 3:
-                        var countries = rest.Get<Country>("country");
-                        Recorder<Country> countryRecorder = new Recorder<Country>(countries);
-                        countryRecorder.Write();
-                        break;
-                    case 4:
-                        var headquarters = rest.Get<Headquarter>("headquarter");
-                        Recorder<Headquarter> headquarterRecorder = new Recorder<Headquarter>(headquarters);
-                        headquarterRecorder.Write();
-                        break;
-                    default:
-                        break;
-                }
+        static void Display(RestService rest)
+        {
+            Console.WriteLine(
+                "What do you wish to display?\n" +
+                "1. Brands\n" +
+                "2. Phones\n" +
+                "3. Countries\n" +
+                "4. Headquarters\n");
+
+            int num = int.Parse(Console.ReadLine());
+
+            switch (num)
+            {
+                case 1:
+                    var brands = rest.Get<Brand>("brand");
+                    Recorder<Brand> brandRecorder = new Recorder<Brand>(brands);
+                    brandRecorder.Write();
+                    break;
+                case 2:
+                    var phones = rest.Get<Phone>("phone");
+                    Recorder<Phone> phoneRecorder = new Recorder<Phone>(phones);
+                    phoneRecorder.Write();
+                    break;
+                case 3:
+                    var countries = rest.Get<Country>("country");
+                    Recorder<Country> countryRecorder = new Recorder<Country>(countries);
+                    countryRecorder.Write();
+                    break;
+                case 4:
+                    var headquarters = rest.Get<Headquarter>("headquarter");
+                    Recorder<Headquarter> headquarterRecorder = new Recorder<Headquarter>(headquarters);
+                    headquarterRecorder.Write();
+                    break;
+                default:
+                    break;
             }
-            void DisplayExtraInfo()
+        }
+        static void DisplayExtraInfo(RestService rest)
+        {
+            Console.WriteLine(
+                "1. The number of phones manufactured by each brand\n" +
+                "2. The best camera by each brand\n" +
+                "3. The brand with the most expensive phone\n" +
+                "4. The country with the most headquarters\n" +
+                "5. The countries and brands that manufacture there\n");
+
+            int num = int.Parse(Console.ReadLine());
+
+            switch (num)
             {
-                Console.WriteLine(
-                    "1. The number of phones manufactured by each brand\n" +
-                    "2. The best camera by each brand\n" +
-                    "3. The brand with the most expensive phone\n" +
-                    "4. The country with the most headquarters\n" +
-                    "5. The countries and brands that manufacture there\n");
-
-                int num = int.Parse(Console.ReadLine());
-
-                switch (num)
-                {
-                    case 1:
-                        var q1 = rest.Get<KeyValuePair<string, int>>("stat/numberofphonesbybrands");
-                        foreach (var item in q1)
+                case 1:
+                    var q1 = rest.Get<KeyValuePair<string, int>>("stat/numberofphonesbybrands");
+                    foreach (var item in q1)
+                    {
+                        Console.WriteLine("Brand: " + item.Key + "\t Number: " + item.Value.ToString());
+                    }
+                    break;
+                case 2:
+                    var q2 = rest.Get<KeyValuePair<string, string>>("stat/bestcamerabyeachbrand");
+                    foreach (var item in q2)
+                    {
+                        Console.WriteLine("Brand: " + item.Key + "\t Phone: " + item.Value);
+                    }
+                    break;
+                case 3:
+                    var q3 = rest.Get<KeyValuePair<string, int>>("stat/brandwiththemostexpensivephone");
+                    foreach (var item in q3)
+                    {
+                        Console.WriteLine("Brand: " + item.Key + "\t Phone: " + item.Value.ToString());
+                    }
+                    break;
+                case 4:
+                    var q4 = rest.Get<KeyValuePair<string, int>>("stat/countrywithmostheadquarters");
+                    foreach (var item in q4)
+                    {
+                        Console.WriteLine("Country: " + item.Key + "\t Number: " + item.Value.ToString());
+                    }
+                    break;
+                case 5:
+                    var q5 = rest.Get<KeyValuePair<string, IEnumerable<string>>>("stat/countriesandbrandsthatmanufacturethere");
+                    foreach (var item in q5)
+                    {
+                        Console.WriteLine("Country: " + item.Key);
+                        foreach (var brand in item.Value)
                         {
-                            Console.WriteLine("Brand: " + item.Key + "\t Number: " + item.Value.ToString());
+                            Console.WriteLine("-" + brand);
                         }
-                        break;
-                    case 2:
-                        var q2 = rest.Get<KeyValuePair<string, string>>("stat/bestcamerabyeachbrand");
-                        foreach (var item in q2)
-                        {
-                            Console.WriteLine("Brand: " + item.Key + "\t Phone: " + item.Value);
-                        }
-                        break;
-                    case 3:
-                        var q3 = rest.Get<KeyValuePair<string, int>>("stat/brandwiththemostexpensivephone");
-                        foreach (var item in q3)
-                        {
-                            Console.WriteLine("Brand: " + item.Key + "\t Phone: " + item.Value.ToString());
-                        }
-                        break;
-                    case 4:
-                        var q4 = rest.Get<KeyValuePair<string, int>>("stat/countrywithmostheadquarters");
-                        foreach (var item in q4)
-                        {
-                            Console.WriteLine("Country: " + item.Key + "\t Number: " + item.Value.ToString());
-                        }
-                        break;
-                    case 5:
-                        var q5 = rest.Get<KeyValuePair<string, IEnumerable<string>>>("stat/countriesandbrandsthatmanufacturethere");
-                        foreach (var item in q5)
-                        {
-                            Console.WriteLine("Country: " + item.Key);
-                            foreach (var brand in item.Value)
-                            {
-                                Console.WriteLine("-" + brand);
-                            }
-                            Console.WriteLine();
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                        Console.WriteLine();
+                    }
+                    break;
+                default:
+                    break;
             }
-            void Create()
+        }
+        static void Create(RestService rest)
+        {
+            Console.WriteLine(
+                "What do you wish to create?\n" +
+                "1. Brand\n" +
+                "2. Phone\n" +
+                "3. Country\n" +
+                "4. Headquarter\n");
+
+            int num = int.Parse(Console.ReadLine());
+
+            switch (num)
             {
-                Console.WriteLine(
-                    "What do you wish to create?\n" +
-                    "1. Brand\n" +
-                    "2. Phone\n" +
-                    "3. Country\n" +
-                    "4. Headquarter\n");
-
-                int num = int.Parse(Console.ReadLine());
-
-                switch (num)
-                {
-                    case 1:
-                        var brands = rest.Get<Brand>("brand");
-                        Brand newBrand = new Recorder<Brand>(brands).Create();
-                        rest.Post<Brand>(newBrand, "brand");
-                        break;
-                    case 2:
-                        var phones = rest.Get<Phone>("phone");
-                        Phone newPhone = new Recorder<Phone>(phones).Create();
-                        rest.Post<Phone>(newPhone, "phone");
-                        break;
-                    case 3:
-                        var countries = rest.Get<Country>("country");
-                        Country newCountry = new Recorder<Country>(countries).Create();
-                        rest.Post<Country>(newCountry, "country");
-                        break;
-                    case 4:
-                        var headquarters = rest.Get<Headquarter>("headquarter");
-                        Headquarter newHeadquarter = new Recorder<Headquarter>(headquarters).Create();
-                        rest.Post<Headquarter>(newHeadquarter, "headquarter");
-                        break;
-                    default:
-                        break;
-                }
+                case 1:
+                    var brands = rest.Get<Brand>("brand");
+                    Brand newBrand = new Recorder<Brand>(brands).Create();
+                    rest.Post<Brand>(newBrand, "brand");
+                    break;
+                case 2:
+                    var phones = rest.Get<Phone>("phone");
+                    Phone newPhone = new Recorder<Phone>(phones).Create();
+                    rest.Post<Phone>(newPhone, "phone");
+                    break;
+                case 3:
+                    var countries = rest.Get<Country>("country");
+                    Country newCountry = new Recorder<Country>(countries).Create();
+                    rest.Post<Country>(newCountry, "country");
+                    break;
+                case 4:
+                    var headquarters = rest.Get<Headquarter>("headquarter");
+                    Headquarter newHeadquarter = new Recorder<Headquarter>(headquarters).Create();
+                    rest.Post<Headquarter>(newHeadquarter, "headquarter");
+                    break;
+                default:
+                    break;
             }
-            void Delete()
+        }
+        static void Delete(RestService rest)
+        {
+            Console.WriteLine(
+                "What do you wish to Delete?\n" +
+                "1. Brand\n" +
+                "2. Phone\n" +
+                "3. Country\n" +
+                "4. Headquarter\n");
+
+            int num = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Which Id number?");
+
+            int id = int.Parse(Console.ReadLine());
+
+            switch (num)
             {
-                Console.WriteLine(
-                    "What do you wish to Delete?\n" +
-                    "1. Brand\n" +
-                    "2. Phone\n" +
-                    "3. Country\n" +
-                    "4. Headquarter\n");
-
-                int num = int.Parse(Console.ReadLine());
-
-                Console.WriteLine("Which Id number?");
-                
-               int id = int.Parse(Console.ReadLine());
-
-                switch (num)
-                {
-                    case 1:
-                        var brands = rest.Get<Brand>("brand");
-                        rest.Delete(id, "brand");
-                        break;
-                    case 2:
-                        var phones = rest.Get<Phone>("phone");
-                        rest.Delete(id, "phone");
-                        break;
-                    case 3:
-                        var countries = rest.Get<Country>("country");
-                        rest.Delete(id, "country");
-                        break;
-                    case 4:
-                        var headquarters = rest.Get<Headquarter>("headquarter");
-                        rest.Delete(id, "headquarter");
-                        break;
-                    default:
-                        break;
-                }
+                case 1:
+                    var brands = rest.Get<Brand>("brand");
+                    rest.Delete(id, "brand");
+                    break;
+                case 2:
+                    var phones = rest.Get<Phone>("phone");
+                    rest.Delete(id, "phone");
+                    break;
+                case 3:
+                    var countries = rest.Get<Country>("country");
+                    rest.Delete(id, "country");
+                    break;
+                case 4:
+                    var headquarters = rest.Get<Headquarter>("headquarter");
+                    rest.Delete(id, "headquarter");
+                    break;
+                default:
+                    break;
             }
         }
 
-        
+
     }
 }
