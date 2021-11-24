@@ -12,23 +12,6 @@ namespace NSEON4_HFT_2021221.Client
 
             RestService rest = new RestService("http://localhost:62814");
 
-            //rest.Post<Brand>(new Brand() { Name = "Google" }, "brand");
-
-            //var brands = rest.Get<Brand>("brand");
-            //var phones = rest.Get<Phone>("phone");
-            //var headquarters = rest.Get<Headquarter>("headquarter");
-            //var countries = rest.Get<Country>("country");
-
-            //var q1 = rest.Get<KeyValuePair<string, int>>("stat/numberofphonesbybrands");
-
-            //var q2 = rest.Get<KeyValuePair<string, string>>("stat/bestcamerabyeachbrand");
-
-            //var q3 = rest.Get<KeyValuePair<string, int>>("stat/brandwiththemostexpensivephone");
-
-            //var q4 = rest.Get<KeyValuePair<string, int>>("stat/countrywithmostheadquarters");
-
-            //var q5 = rest.Get<KeyValuePair<string, IEnumerable<string>>>("stat/countriesandbrandsthatmanufacturethere");
-
             int num;
 
             Console.WriteLine("Welcome to the mobile phone database! Please select one of the options below!");
@@ -38,7 +21,8 @@ namespace NSEON4_HFT_2021221.Client
                     "\n0. Finish\n" +
                     "1. Display brands/phones/countries/headquarters\n" +
                     "2. Diplay extra info\n" +
-                    "3. Create new brand/phone/country/headquarter\n"
+                    "3. Create new brand/phone/country/headquarter\n" +
+                    "4. Delete brand/phone/country/headquarter\n"
                     );
 
                 num = int.Parse(Console.ReadLine());
@@ -53,6 +37,9 @@ namespace NSEON4_HFT_2021221.Client
                         break;;
                     case 3:
                         Create();
+                        break;
+                    case 4:
+                        Delete();
                         break;
                     default:
                         break;
@@ -189,6 +176,43 @@ namespace NSEON4_HFT_2021221.Client
                         var headquarters = rest.Get<Headquarter>("headquarter");
                         Headquarter newHeadquarter = new Recorder<Headquarter>(headquarters).Create();
                         rest.Post<Headquarter>(newHeadquarter, "headquarter");
+                        break;
+                    default:
+                        break;
+                }
+            }
+            void Delete()
+            {
+                Console.WriteLine(
+                    "What do you wish to Delete?\n" +
+                    "1. Brand\n" +
+                    "2. Phone\n" +
+                    "3. Country\n" +
+                    "4. Headquarter\n");
+
+                int num = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Which Id number?");
+                
+               int id = int.Parse(Console.ReadLine());
+
+                switch (num)
+                {
+                    case 1:
+                        var brands = rest.Get<Brand>("brand");
+                        rest.Delete(id, "brand");
+                        break;
+                    case 2:
+                        var phones = rest.Get<Phone>("phone");
+                        rest.Delete(id, "phone");
+                        break;
+                    case 3:
+                        var countries = rest.Get<Country>("country");
+                        rest.Delete(id, "country");
+                        break;
+                    case 4:
+                        var headquarters = rest.Get<Headquarter>("headquarter");
+                        rest.Delete(id, "headquarter");
                         break;
                     default:
                         break;
