@@ -43,7 +43,7 @@ namespace NSEON4_HFT_2021221.Endpoint.Controllers
         }
 
         // PUT /phone
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Put([FromBody] Phone value)
         {
             pl.Update(value);

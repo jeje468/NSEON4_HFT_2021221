@@ -42,7 +42,7 @@ namespace NSEON4_HFT_2021221.Endpoint.Controllers
         }
 
         // PUT /country
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Put([FromBody] Country value)
         {
             cl.Update(value);

@@ -43,7 +43,7 @@ namespace NSEON4_HFT_2021221.Endpoint.Controllers
         }
 
         // PUT /headquarter
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Put([FromBody] Headquarter value)
         {
             hl.Update(value);

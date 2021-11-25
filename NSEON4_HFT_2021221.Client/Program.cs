@@ -23,7 +23,8 @@ namespace NSEON4_HFT_2021221.Client
                     "2. Diplay extra info\n" +
                     "3. Create new brand/phone/country/headquarter\n" +
                     "4. Delete brand/phone/country/headquarter\n" +
-                    "5. Read one brand/phone/country/headquarter\n"
+                    "5. Read one brand/phone/country/headquarter\n" +
+                    "6. Update a brand/phone/country/headquarter\n"
                     );
 
                 num = int.Parse(Console.ReadLine());
@@ -44,6 +45,9 @@ namespace NSEON4_HFT_2021221.Client
                         break;
                     case 5:
                         Read(rest);
+                        break;
+                    case 6:
+                        Update(rest);
                         break;
                     default:
                         break;
@@ -266,6 +270,55 @@ namespace NSEON4_HFT_2021221.Client
                     h.Add(rest.Get<Headquarter>(id, "headquarter"));
                     Recorder<Headquarter> headquarterRecorder = new Recorder<Headquarter>(h);
                     headquarterRecorder.Write(); break;
+                default:
+                    break;
+            }
+        }
+        static void Update(RestService rest)
+        {
+            Console.WriteLine(
+               "What do you wish to create?\n" +
+               "1. Brand\n" +
+               "2. Phone\n" +
+               "3. Country\n" +
+               "4. Headquarter\n");
+
+            int num = int.Parse(Console.ReadLine());
+
+            switch (num)
+            {
+                case 1:
+                    var brands = rest.Get<Brand>("brand");
+                    Console.WriteLine("Id: ");
+                    int brandId = int.Parse(Console.ReadLine());
+                    Brand newBrand = new Recorder<Brand>(brands).Create();
+                    newBrand.Id = brandId;
+                    rest.Put<Brand>(newBrand, "brand");
+                    break;
+                case 2:
+                    var phones = rest.Get<Phone>("phone");
+                    Console.WriteLine("Id: ");
+                    int phoneId = int.Parse(Console.ReadLine());
+                    Phone newPhone = new Recorder<Phone>(phones).Create();
+                    newPhone.Id = phoneId;
+                    rest.Put<Phone>(newPhone, "phone");
+                    break;
+                case 3:
+                    var countries = rest.Get<Country>("country");
+                    Console.WriteLine("Id: ");
+                    int countryId = int.Parse(Console.ReadLine());
+                    Country newCountry = new Recorder<Country>(countries).Create();
+                    newCountry.Id = countryId;
+                    rest.Put<Country>(newCountry, "country");
+                    break;
+                case 4:
+                    var headquarters = rest.Get<Headquarter>("headquarter");
+                    Console.WriteLine("Id: ");
+                    int headquarterId = int.Parse(Console.ReadLine());
+                    Headquarter newHeadquarter = new Recorder<Headquarter>(headquarters).Create();
+                    newHeadquarter.Id = headquarterId;
+                    rest.Put<Headquarter>(newHeadquarter, "headquarter");
+                    break;
                 default:
                     break;
             }
