@@ -18,14 +18,15 @@ namespace NSEON4_HFT_2021221.Test
         BrandLogic bl;
         HeadquarterLogic hl;
         CountryLogic cl;
+        Mock<IPhoneRepository> mockPhoneRepository = new Mock<IPhoneRepository>();
+        Mock<IBrandRepository> mockBrandRepository = new Mock<IBrandRepository>();
+        Mock<IHeadquarterRepository> mockHeadquarterRepository = new Mock<IHeadquarterRepository>();
+        Mock<ICountryRepository> mockCountryRepository = new Mock<ICountryRepository>();
 
         [SetUp]
         public void Init()
         {
-            var mockPhoneRepository = new Mock<IPhoneRepository>();
-            var mockBrandRepository = new Mock<IBrandRepository>();
-            var mockHeadquarterRepository = new Mock<IHeadquarterRepository>();
-            var mockCountryRepository = new Mock<ICountryRepository>();
+            
 
             Brand samsung = new Brand() { Id = 1, Name = "Samsung" };
             Brand oneplus = new Brand() { Id = 2, Name = "OnePlus" };
@@ -132,10 +133,18 @@ namespace NSEON4_HFT_2021221.Test
             mockBrandRepository.Setup((t) => t.ReadAll()).Returns(brands.AsQueryable());
             mockCountryRepository.Setup((t) => t.ReadAll()).Returns(countries.AsQueryable());
             mockHeadquarterRepository.Setup((t) => t.ReadAll()).Returns(headquarters.AsQueryable());
+
+            mockPhoneRepository.Setup(x => x.Create(It.IsAny<Phone>()));
+            mockBrandRepository.Setup(x => x.Create(It.IsAny<Brand>()));
+            mockCountryRepository.Setup(x => x.Read(It.IsAny<int>())).Returns((int i) => countries.Where(x => x.Id == i).Single());
+            mockHeadquarterRepository.Setup(x => x.Delete(It.IsAny<int>()));
+
+
             pl = new PhoneLogic(mockPhoneRepository.Object);
             bl = new BrandLogic(mockBrandRepository.Object);
             cl = new CountryLogic(mockCountryRepository.Object);
             hl = new HeadquarterLogic(mockHeadquarterRepository.Object);
+
 
         }
 
@@ -219,53 +228,36 @@ namespace NSEON4_HFT_2021221.Test
         [Test]
         public void PhoneCreate()
         {
-            Phone newPhone = new Phone()
-            {
-                Id = 16,
-                Name = "NewPhone",
-                Price = 900,
-                CameraPixels = 50
-            };
+           Phone newPhone = new Phone() { Name = "Pixel" };
 
             pl.Create(newPhone);
-            
-            var q = pl.ReadAll();
-
-            Assert.That(q.ToList().Count(), Is.EqualTo(16));
-            Assert.That(q.ToList().Contains(newPhone));
+            mockPhoneRepository.Verify(m => m.Create(newPhone), Times.Once);
         }
 
         [Test]
         public void BrandCreate()
         {
-            Brand newBrand = new Brand()
-            {
-                Name = "New Brand",
-            };
+            Brand newBrand = new Brand() { Name = "Google" };
 
             bl.Create(newBrand);
-
-            var q = bl.ReadAll();
-
-            Assert.That(q.ToList().Count(), Is.EqualTo(7));
-            Assert.That(q.ToList().Contains(newBrand));
-        }
-
-        [Test]
-        public void PhoneDelete()
-        {
-            int size = pl.ReadAll().ToList().Count();
-            pl.Delete(1);
-
-            Assert.That(pl.ReadAll().ToList().Count(), Is.EqualTo(size - 1));
+            mockBrandRepository.Verify(m => m.Create(newBrand), Times.Once);
         }
 
         [Test]
         public void CountryRead()
         {
-            var result = cl.Read(1);
+            Country country = cl.Read(1);
 
-            Assert.That(result.Name, Is.EqualTo("China"));
+            Assert.That(country.Id, Is.EqualTo(1));
+            Assert.That(country.Name, Is.EqualTo("China"));
         }
+
+        [Test]
+        public void HeadquarterDelete()
+        {
+            hl.Delete(1);
+            mockHeadquarterRepository.Verify(m => m.Delete(It.IsAny<int>()), Times.Once);
+        }
+
     }
 }

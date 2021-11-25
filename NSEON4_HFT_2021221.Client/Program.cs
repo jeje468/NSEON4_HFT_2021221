@@ -22,7 +22,8 @@ namespace NSEON4_HFT_2021221.Client
                     "1. Display brands/phones/countries/headquarters\n" +
                     "2. Diplay extra info\n" +
                     "3. Create new brand/phone/country/headquarter\n" +
-                    "4. Delete brand/phone/country/headquarter\n"
+                    "4. Delete brand/phone/country/headquarter\n" +
+                    "5. Read one brand/phone/country/headquarter\n"
                     );
 
                 num = int.Parse(Console.ReadLine());
@@ -30,29 +31,28 @@ namespace NSEON4_HFT_2021221.Client
                 switch (num)
                 {
                     case 1:
-                        Display(rest);                        
-                        break;                    
+                        Display(rest);
+                        break;
                     case 2:
                         DisplayExtraInfo(rest);
-                        break;;
+                        break; ;
                     case 3:
                         Create(rest);
                         break;
                     case 4:
                         Delete(rest);
                         break;
+                    case 5:
+                        Read(rest);
+                        break;
                     default:
                         break;
                 }
             }
-            while(num != 0)
-                
-
-            ;
-
-            
-            
+            while (num != 0);
+     
         }
+
 
         static void Display(RestService rest)
         {
@@ -164,7 +164,7 @@ namespace NSEON4_HFT_2021221.Client
                 case 1:
                     var brands = rest.Get<Brand>("brand");
                     Brand newBrand = new Recorder<Brand>(brands).Create();
-                    rest.Post<Brand>(newBrand, "brand");
+                    rest.Post<Brand>(newBrand, "brand");                    
                     break;
                 case 2:
                     var phones = rest.Get<Phone>("phone");
@@ -218,6 +218,54 @@ namespace NSEON4_HFT_2021221.Client
                     var headquarters = rest.Get<Headquarter>("headquarter");
                     rest.Delete(id, "headquarter");
                     break;
+                default:
+                    break;
+            }
+        }
+        static void Read(RestService rest)
+        {
+            Console.WriteLine(
+               "What do you wish to Read?\n" +
+               "1. Brand\n" +
+               "2. Phone\n" +
+               "3. Country\n" +
+               "4. Headquarter\n");
+
+            int num = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Which Id number?");
+
+            int id = int.Parse(Console.ReadLine());
+
+            switch (num)
+            {
+                case 1:
+                    var brands = rest.Get<Brand>("brand");
+                    List<Brand> b = new List<Brand>();
+                    b.Add(rest.Get<Brand>(id, "brand"));
+                    Recorder<Brand> brandRecorder = new Recorder<Brand>(b);
+                    brandRecorder.Write();
+                    break;
+                case 2:
+                    var phones = rest.Get<Phone>("phone");
+                    List<Phone> p = new List<Phone>();
+                    p.Add(rest.Get<Phone>(id, "phone"));
+                    Recorder<Phone> phoneRecorder = new Recorder<Phone>(p);
+                    phoneRecorder.Write();
+                    break;
+                case 3:
+                    var countries = rest.Get<Country>("country");
+                    List<Country> c = new List<Country>();
+                    c.Add(rest.Get<Country>(id, "country"));
+                    Recorder<Country> countryRecorder = new Recorder<Country>(c);
+                    countryRecorder.Write(); 
+                    break;
+                case 4:
+                    var headquarters = rest.Get<Headquarter>("headquarter");
+                    List<Headquarter> h = new List<Headquarter>();
+                    h.Add(rest.Get<Headquarter>(id, "headquarter"));
+                    Recorder<Headquarter> headquarterRecorder = new Recorder<Headquarter>(h);
+                    headquarterRecorder.Write(); break;
                 default:
                     break;
             }
