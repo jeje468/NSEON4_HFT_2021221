@@ -53,8 +53,7 @@ namespace NSEON4_HFT_2021221.Client
                         break;
                 }
             }
-            while (num != 0);
-     
+            while (num != 0);     
         }
 
 
