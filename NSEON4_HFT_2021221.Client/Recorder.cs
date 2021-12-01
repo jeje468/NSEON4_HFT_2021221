@@ -59,11 +59,12 @@ namespace NSEON4_HFT_2021221.Client
             {
                 foreach (var prop in t.GetProperties())
                 {
-                    if (prop.Name.Equals("Id") || prop.Name.Equals("Name") || prop.Name.Equals("City"))
+                    if (prop.PropertyType.Name.Contains("Int") || prop.PropertyType.Name.Contains("String"))
                     {
                         Console.WriteLine(prop.Name + ": " + prop.GetValue(item));
                     }
                 }
+                Console.WriteLine();
             }                        
         }
     }
