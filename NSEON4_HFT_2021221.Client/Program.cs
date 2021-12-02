@@ -125,7 +125,7 @@ namespace NSEON4_HFT_2021221.Client
                     var q3 = rest.Get<KeyValuePair<string, int>>("stat/brandwiththemostexpensivephone");
                     foreach (var item in q3)
                     {
-                        Console.WriteLine("Brand: " + item.Key + "\t Phone: " + item.Value.ToString());
+                        Console.WriteLine("Brand: " + item.Key + "\t Price: " + item.Value.ToString());
                     }
                     break;
                 case 4:
