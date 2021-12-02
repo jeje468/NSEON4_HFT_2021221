@@ -206,19 +206,15 @@ namespace NSEON4_HFT_2021221.Client
             switch (num)
             {
                 case 1:
-                    var brands = rest.Get<Brand>("brand");
                     rest.Delete(id, "brand");
                     break;
                 case 2:
-                    var phones = rest.Get<Phone>("phone");
                     rest.Delete(id, "phone");
                     break;
                 case 3:
-                    var countries = rest.Get<Country>("country");
                     rest.Delete(id, "country");
                     break;
                 case 4:
-                    var headquarters = rest.Get<Headquarter>("headquarter");
                     rest.Delete(id, "headquarter");
                     break;
                 default:
