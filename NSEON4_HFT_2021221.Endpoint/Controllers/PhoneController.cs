@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using NSEON4_HFT_2021221.Endpoint.Services;
 using NSEON4_HFT_2021221.Logic;
 using NSEON4_HFT_2021221.Models;
 using System;
@@ -15,10 +17,12 @@ namespace NSEON4_HFT_2021221.Endpoint.Controllers
     {
 
         IPhoneLogic pl;
+        IHubContext<SignalRHub> hub;
 
-        public PhoneController(IPhoneLogic pl)
+        public PhoneController(IPhoneLogic pl, IHubContext<SignalRHub> hub)
         {
             this.pl = pl;
+            this.hub = hub;
         }
 
         // GET: /phone
@@ -40,6 +44,7 @@ namespace NSEON4_HFT_2021221.Endpoint.Controllers
         public void Post([FromBody] Phone value)
         {
             pl.Create(value);
+            this.hub.Clients.All.SendAsync("PhoneCreated", value);
         }
 
         // PUT /phone
@@ -47,13 +52,17 @@ namespace NSEON4_HFT_2021221.Endpoint.Controllers
         public void Put([FromBody] Phone value)
         {
             pl.Update(value);
+            this.hub.Clients.All.SendAsync("PhoneUpdated", value);
         }
 
         // DELETE /phone/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var phoneToDelete = this.pl.Read(id);
             pl.Delete(id);
+            this.hub.Clients.All.SendAsync("PhoneDeleted", phoneToDelete);
+
         }
     }
 }
