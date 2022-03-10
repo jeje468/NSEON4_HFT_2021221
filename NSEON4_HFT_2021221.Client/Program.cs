@@ -10,6 +10,7 @@ namespace NSEON4_HFT_2021221.Client
         {
             System.Threading.Thread.Sleep(8000);
 
+
             RestService rest = new RestService("http://localhost:62814");
 
             int num;
