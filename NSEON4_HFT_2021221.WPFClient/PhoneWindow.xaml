@@ -21,7 +21,7 @@
                         <Label Content="{Binding Name}" ContentStringFormat="Name: {0}"/>
                         <Label Content="{Binding Price}" ContentStringFormat="Price: {0}"/>
                         <Label Content="{Binding CameraPixels}" ContentStringFormat="Camera pixels: {0}"/>
-                        <Label Content="{Binding Brand.Name}" ContentStringFormat="Brand: {0}"/>
+                        <Label Content="{Binding BrandId}" ContentStringFormat="Brand Id: {0}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
