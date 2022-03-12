@@ -20,7 +20,7 @@
         <StackPanel Grid.Row="1">
             <Button Content="Phones" Command="{Binding ViewPhonesCommand}" Padding="10" Margin="30"/>
             <Button Content="Brands" Command="{Binding ViewBrandsCommand}" Padding="10" Margin="30"/>
-            <Button Content="Headquarters" Padding="10" Margin="30"/>
+            <Button Content="Headquarters" Command="{Binding ViewHeadquartersCommand}" Padding="10" Margin="30"/>
         </StackPanel>
 
     </Grid>

@@ -26,6 +26,13 @@ namespace NSEON4_HFT_2021221.WPFClient.ViewModel
                     BrandWindow bw = new BrandWindow();
                     bw.Show();
                 });
+
+            ViewHeadquartersCommand = new RelayCommand(
+                () =>
+                {
+                    HeadquarterWindow hw = new HeadquarterWindow();
+                    hw.Show();
+                });
         }
     }
 }

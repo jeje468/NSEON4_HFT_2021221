@@ -67,7 +67,8 @@ namespace NSEON4_HFT_2021221.WPFClient.ViewModel
                         Name = SelectedPhone.Name,
                         Price = SelectedPhone.Price,
                         CameraPixels= SelectedPhone.CameraPixels,
-                        BrandId = 1
+                        BrandId = selectedPhone.BrandId,
+                        Brand = SelectedPhone.Brand
                     });
                 });
 

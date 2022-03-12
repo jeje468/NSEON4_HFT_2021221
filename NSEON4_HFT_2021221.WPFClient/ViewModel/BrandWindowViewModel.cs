@@ -62,7 +62,9 @@ namespace NSEON4_HFT_2021221.WPFClient.ViewModel
                 {
                     Brands.Add(new Brand()
                     {
-                        Name = SelectedBrand.Name
+                        Name = SelectedBrand.Name,
+                        Phones = SelectedBrand.Phones,
+                        Headquarters= SelectedBrand.Headquarters
                     });
                 });
 
@@ -79,6 +81,7 @@ namespace NSEON4_HFT_2021221.WPFClient.ViewModel
                 {
                     return SelectedBrand != null;
                 });
+
 
                 SelectedBrand = new Brand();
             }
