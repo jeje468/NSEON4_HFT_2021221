@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using NSEON4_HFT_2021221.Data;
 using NSEON4_HFT_2021221.Endpoint.Services;
 using NSEON4_HFT_2021221.Logic;
@@ -33,6 +34,11 @@ namespace NSEON4_HFT_2021221.Endpoint
             services.AddSignalR();
 
             services.AddTransient<PhoneDbContext, PhoneDbContext>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "NSEON4_HFT_2021221.Endpoint", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -40,6 +46,8 @@ namespace NSEON4_HFT_2021221.Endpoint
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NSEON4_HFT_2021221.Endpoint v1"));
             }
 
             app.UseRouting();
