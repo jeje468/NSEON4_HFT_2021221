@@ -50,6 +50,12 @@ namespace NSEON4_HFT_2021221.Endpoint
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NSEON4_HFT_2021221.Endpoint v1"));
             }
 
+            app.UseCors(x => x
+                .AllowCredentials()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .WithOrigins("http://localhost:30192"));
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

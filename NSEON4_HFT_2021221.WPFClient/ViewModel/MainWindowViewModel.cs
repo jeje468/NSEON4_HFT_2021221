@@ -18,20 +18,20 @@ namespace NSEON4_HFT_2021221.WPFClient.ViewModel
         {
             ViewPhonesCommand = new RelayCommand(
                 () => { PhoneWindow pw = new PhoneWindow();
-                    pw.Show();
+                    pw.ShowDialog();
                 });
 
             ViewBrandsCommand = new RelayCommand(
                 () => {
                     BrandWindow bw = new BrandWindow();
-                    bw.Show();
+                    bw.ShowDialog();
                 });
 
             ViewHeadquartersCommand = new RelayCommand(
                 () =>
                 {
                     HeadquarterWindow hw = new HeadquarterWindow();
-                    hw.Show();
+                    hw.ShowDialog();
                 });
         }
     }

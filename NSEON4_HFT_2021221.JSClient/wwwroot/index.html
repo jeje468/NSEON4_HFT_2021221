@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Phone UI</title>
+    <link rel="stylesheet" href="index.css"/>
+</head>
+<body>
+    <h1>Phone Catalog</h1>
+
+    <div id="formdiv">
+        <label>Name</label>
+        <input type="text" id="name" />
+        <label>Price</label>
+        <input type="text" id="price" />
+        <label>Camera pixels</label>
+        <input type="text" id="cameraPixels" />
+        <label>Brand Id</label>
+        <input type="text" id="brandId" />
+        <button type="button" onclick="create()">Add phone</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Camera Pixels</th>
+                <th>Brand Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+        </tbody>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
