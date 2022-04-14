@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +23,7 @@ namespace NSEON4_HFT_2021221.WPFClient
     {
         public MainWindow()
         {
+            Thread.Sleep(4000);
             InitializeComponent();
         }
     }
