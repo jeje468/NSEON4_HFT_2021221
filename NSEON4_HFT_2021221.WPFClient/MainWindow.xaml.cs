@@ -23,6 +23,7 @@ namespace NSEON4_HFT_2021221.WPFClient
     {
         public MainWindow()
         {
+            Thread.Sleep(4000);
             InitializeComponent();
         }
     }
