@@ -94,3 +94,24 @@ function create() {
         })
         .catch((error) => { console.error('Error:', error); });
 }
+
+function update() {
+    let name = document.getElementById('name').value;
+    let price = document.getElementById('price').value;
+    let cameraPixels = document.getElementById('cameraPixels').value;
+    let brandId = document.getElementById('brandId').value;
+    let id = document.getElementById('id').value;
+
+    fetch('http://localhost:62814/phone', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(
+            {id: id, name: name, price: price, cameraPixels: cameraPixels, brandId: brandId })
+    })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getdata();
+        })
+        .catch((error) => { console.error('Error:', error); });
+}
